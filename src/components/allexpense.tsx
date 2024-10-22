@@ -171,15 +171,16 @@ export default function AllExpense() {
                             )}
 
                             {filteredExpenses.length > 0 ? (
-                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4 justify-center">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4 justify-items-center">
                                     {filteredExpenses.map(({ amount, category, date, note, title, id, firebaseID }) => {
                                         return (
                                             <div
                                                 key={firebaseID}
-                                                className="card bg-base-100 w-full max-w-xs shadow-lg mb-4 border-4 border-brown-800 transition-transform transform hover:scale-105 hover:shadow-xl hover:border-brown-900">
+                                                className="card bg-base-100 w-full max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl shadow-lg mb-4 border-4 border-brown-800 transition-transform transform hover:scale-105 hover:shadow-xl hover:border-brown-900"
+                                            >
                                                 <div className="card-body p-4 flex flex-col h-full">
                                                     <p className="font-bold text-sm sm:text-base">Title:</p>
-                                                    <h2 className="pl-1 text-lg sm:text-xl md:text-2xl font-bold overflow-hidden truncate">{title}</h2>
+                                                    <h2 className="pl-1 text-lg sm:text-xl md:text-2xl font-bold overflow-hidden">{title}</h2>
 
                                                     <p className="font-bold text-sm sm:text-base">Amount:</p>
                                                     <p className="pl-1 text-lg sm:text-xl font-semibold">RS {amount}</p>
@@ -192,7 +193,7 @@ export default function AllExpense() {
                                                     <p className="pl-1 text-sm sm:text-base">{new Date().toLocaleDateString()}</p>
 
                                                     <p className="font-bold text-sm sm:text-base">Optional Note:</p>
-                                                    <p className="pl-1 break-words text-sm sm:text-base overflow-hidden truncate">{note || "N/A"}</p>
+                                                    <p className="pl-1 break-words text-sm sm:text-base h-20 overflow-hidden">{note || "N/A"}</p>
 
                                                     <div className="card-actions justify-end mt-auto">
                                                         <button
@@ -211,6 +212,7 @@ export default function AllExpense() {
                                                     </div>
                                                 </div>
                                             </div>
+
                                         );
                                     })}
                                 </div>
