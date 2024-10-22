@@ -42,13 +42,17 @@ const Chart: FC<ChartProps> = ({ labels, data }) => {
     };
 
     return (
-        <div className="flex justify-center items-center" style={{
-            width: '100%',
-            height: '400px',
-            padding: '20px'
-        }}>
-            <Doughnut data={chartData} />
+        <div className="flex justify-center items-center w-full h-full p-4 md:p-6 lg:p-8">
+            <div className="w-full" style={{
+                maxWidth: '600px', 
+                minWidth: '300px', 
+                height: '100%',    
+                aspectRatio: '1',  
+            }}>
+                <Doughnut data={chartData} />
+            </div>
         </div>
+
     );
 };
 

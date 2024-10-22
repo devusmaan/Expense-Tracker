@@ -112,10 +112,12 @@ export default function AllExpense() {
                     <div className="flex flex-col lg:flex-row items-center justify-between">
                         <div className="expense-container w-full lg:w-1/3 flex items-center justify-center"></div>
 
-                        <div className="lg:w-1/3 w-full max-w-sm lg:max-w-none bg-gray-100 p-4 shadow-lg rounded-lg flex flex-col items-center mt-6 lg:mt-0 mb-3">
-                            <h2 className="text-2xl font-bold mb-4">Total Monthly Expense</h2>
-                            <p className="text-4xl font-bold">Rs: {totalMonthlyExpenses.toFixed(2)}</p>
+                        <div className="lg:w-1/3 w-full max-w-sm lg:max-w-none bg-white p-6 shadow-lg rounded-lg flex flex-col items-center mt-6 lg:mt-0 mb-3 transition-transform transform hover:scale-105">
+                            <h2 className="text-2xl font-bold mb-4 text-gray-800">Total Monthly Expense</h2>
+                            <p className="text-5xl font-semibold text-green-600">Rs: {totalMonthlyExpenses.toFixed(2)}</p>
+                            <p className="text-sm text-gray-500 mt-2">This is your total expense for the current month.</p>
                         </div>
+
 
                         <div className="hidden lg:flex lg:w-1/3 items-center justify-center">
                             <Chart labels={categories} data={categoryData} />
@@ -169,43 +171,51 @@ export default function AllExpense() {
                             )}
 
                             {filteredExpenses.length > 0 ? (
-                                <div className="flex flex-wrap items-center gap-3 justify-center">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 p-4 justify-center">
                                     {filteredExpenses.map(({ amount, category, date, note, title, id, firebaseID }) => {
                                         return (
-                                            <div key={id} className="card bg-base-100 w-full sm:w-80 md:w-96 shadow-xl mb-4">
-                                                <div className="card-body">
-                                                    <p className="font-bold">Title: </p>
-                                                    <h2 className="pl-6 text-2xl md:text-4xl font-bold">{title}</h2>
+                                            <div
+                                                key={firebaseID}
+                                                className="card bg-base-100 w-full max-w-xs shadow-lg mb-4 border-4 border-brown-800 transition-transform transform hover:scale-105 hover:shadow-xl hover:border-brown-900">
+                                                <div className="card-body p-4 flex flex-col h-full">
+                                                    <p className="font-bold text-sm sm:text-base">Title:</p>
+                                                    <h2 className="pl-1 text-lg sm:text-xl md:text-2xl font-bold overflow-hidden truncate">{title}</h2>
 
-                                                    <p className="font-bold">Amount: </p>
-                                                    <p className="pl-6">RS {amount}</p>
+                                                    <p className="font-bold text-sm sm:text-base">Amount:</p>
+                                                    <p className="pl-1 text-lg sm:text-xl font-semibold">RS {amount}</p>
 
-                                                    <p className="font-bold">Category:</p>
-                                                    <div className="badge badge-secondary ml-6">{category}</div>
+                                                    <p className="font-bold text-sm sm:text-base">Category:</p>
+                                                    <div className="badge badge-secondary ml-1 sm:ml-3">{category}</div>
 
-                                                    <p className="font-bold">Date:</p>
-                                                    <p className="pl-6">{new Date().toLocaleTimeString([], { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
-                                                    <p className="pl-6">{new Date().toLocaleDateString()}</p>
+                                                    <p className="font-bold text-sm sm:text-base">Date:</p>
+                                                    <p className="pl-1 text-sm sm:text-base">{new Date().toLocaleTimeString([], { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
+                                                    <p className="pl-1 text-sm sm:text-base">{new Date().toLocaleDateString()}</p>
 
-                                                    <p className="font-bold">Optional Note:</p>
-                                                    <p className="pl-6 break-words max-w-full">{note || "N/A"}</p>
+                                                    <p className="font-bold text-sm sm:text-base">Optional Note:</p>
+                                                    <p className="pl-1 break-words text-sm sm:text-base overflow-hidden truncate">{note || "N/A"}</p>
 
-                                                    <div className="card-actions justify-end">
-                                                        <div>
-                                                            <button onClick={() => handleDeleteExpense(firebaseID)} className="btn">Delete</button>
-                                                        </div>
-                                                        <div>
+                                                    <div className="card-actions justify-end mt-auto">
+                                                        <button
+                                                            onClick={() => handleDeleteExpense(firebaseID)}
+                                                            className="btn bg-red-500 hover:bg-red-600 text-white"
+                                                        >
+                                                            Delete
+                                                        </button>
+                                                        <div className="ml-2">
                                                             <Link href={`editexpense/${firebaseID}`}>
-                                                                <button className="btn">Edit</button>
+                                                                <button className="btn bg-blue-500 hover:bg-blue-600 text-white">
+                                                                    Edit
+                                                                </button>
                                                             </Link>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-
                                         );
                                     })}
                                 </div>
+
+
                             ) : (
                                 <h4 className="font-bold text-center pt-4">No expenses match your filters</h4>
                             )}
