@@ -1,20 +1,31 @@
 "use client";
 
-import Chart from '@/components/chart';
 import { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs, query, where } from 'firebase/firestore';
 import { db } from '@/firebase/firebasefirestore';
 import Loading from '@/components/loading';
 import Navbar from '@/components/navbar';
-const ChartPage = () => {
+import { auth } from '@/firebase/firebaseauth';
+import Chart from '@/components/chart';
+
+export default function ChartPage() {
     const [categories, setCategories] = useState<string[]>([]);
     const [categoryData, setCategoryData] = useState<number[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchCategories = async () => {
+            const currentUser = auth.currentUser;
+
+            if (!currentUser) {
+                console.error("No user logged in.");
+                setLoading(false);
+                return;
+            }
+
             try {
-                const querySnapshot = await getDocs(collection(db, "expenses"));
+                const q = query(collection(db, "expenses"), where("uid", "==", currentUser.uid));
+                const querySnapshot = await getDocs(q);
                 const fetchedCategories: string[] = [];
                 const fetchedData: number[] = [];
 
@@ -55,4 +66,4 @@ const ChartPage = () => {
     );
 };
 
-export default ChartPage;
+

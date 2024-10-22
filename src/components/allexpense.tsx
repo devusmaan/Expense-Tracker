@@ -5,7 +5,7 @@ import { collection, DocumentData, onSnapshot, query, where } from "firebase/fir
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Chart from "./chart";
-import Loading from "@/components/loading"; 
+import Loading from "@/components/loading";
 
 export default function AllExpense() {
     const [expense, setExpense] = useState<DocumentData[]>([]);
@@ -63,7 +63,7 @@ export default function AllExpense() {
                     }
                 }
             });
-            setLoading(false); 
+            setLoading(false);
         });
     };
 
@@ -84,7 +84,7 @@ export default function AllExpense() {
 
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth(); 
+    const currentMonth = currentDate.getMonth();
 
     const totalMonthlyExpenses = filteredExpenses
         .filter((item) => {
@@ -178,17 +178,17 @@ export default function AllExpense() {
                                                     <h2 className="pl-6 text-2xl md:text-4xl font-bold">{title}</h2>
 
                                                     <p className="font-bold">Amount: </p>
-                                                    <p className="pl-6">{amount}</p>
+                                                    <p className="pl-6">RS {amount}</p>
 
                                                     <p className="font-bold">Category:</p>
-                                                    <div className="badge badge-secondary">{category}</div>
+                                                    <div className="badge badge-secondary ml-6">{category}</div>
 
                                                     <p className="font-bold">Date:</p>
                                                     <p className="pl-6">{new Date().toLocaleTimeString([], { hour: 'numeric', minute: 'numeric', hour12: true })}</p>
                                                     <p className="pl-6">{new Date().toLocaleDateString()}</p>
 
                                                     <p className="font-bold">Optional Note:</p>
-                                                    <p className="pl-6">{note || "N/A"}</p>
+                                                    <p className="pl-6 break-words max-w-full">{note || "N/A"}</p>
 
                                                     <div className="card-actions justify-end">
                                                         <div>
@@ -202,6 +202,7 @@ export default function AllExpense() {
                                                     </div>
                                                 </div>
                                             </div>
+
                                         );
                                     })}
                                 </div>

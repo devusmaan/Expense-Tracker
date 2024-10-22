@@ -3,7 +3,6 @@
 import AuthForm from "@/components/authenticationform";
 import { SignupForm } from "@/firebase/firebaseauth";
 import Link from "next/link";
-import { useState } from "react";
 
 
 export default function SignUp() {

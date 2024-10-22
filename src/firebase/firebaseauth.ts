@@ -1,6 +1,7 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, sendEmailVerification, Auth, User } from "firebase/auth";
 import { app } from '@/firebase/firebaseconfig';
 import { saveUser } from "./firebasefirestore";
+import { FirebaseError } from "firebase/app";
 
 
 export const auth = getAuth(app);
@@ -22,8 +23,19 @@ export function SignupForm(email: string, password: string, setError: (error: st
 
         })
         .catch((error) => {
-            setError("Email or Password is incorrect");
+            // setError("Email or Password is incorrect");
 
+            if (error instanceof FirebaseError) {
+                if (error.code === "auth/email-already-in-use") {
+                    setError("Email already in use.");
+                } else if (error.code === "auth/missing-password") {
+                    setError("Please fill in password!");
+                } else if (error.code === "auth/invalid-email") {
+                    setError("Invalid Email, please correct.");
+                } else {
+                    setError(error.message);
+                };
+            }
 
             setTimeout(() => {
                 setError("");

@@ -1,6 +1,6 @@
 "use client";
 
-import { PolarArea } from "react-chartjs-2";
+import { Doughnut, PolarArea } from "react-chartjs-2";
 import { Chart as ChartJS, RadialLinearScale, ArcElement, Tooltip, Legend } from "chart.js";
 import { FC } from "react";
 
@@ -47,7 +47,7 @@ const Chart: FC<ChartProps> = ({ labels, data }) => {
             height: '400px',
             padding: '20px'
         }}>
-            <PolarArea data={chartData} />
+            <Doughnut data={chartData} />
         </div>
     );
 };
